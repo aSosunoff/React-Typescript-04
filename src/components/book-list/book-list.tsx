@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { IBook } from "../../interfaces/IBook";
 import BookListItem from "../book-list-item";
-import { ICombineReducers } from "../../reducers";
+import { RootState } from "../../reducers";
 import styles from "./book-list.module.scss";
+import { useBookstoreServiceContext } from "../../context/bookstore-service-context";
+import { load } from "../../actions/books-action";
 
-interface BookListProps {
+interface StateProps {
   books: IBook[];
+}
+
+interface DispatchProps {
+  load: (payload: IBook[]) => void;
+}
+
+interface OwnProps {
   onAddedToCart: (id: number) => void;
 }
 
-const BookList: React.FC<BookListProps> = ({ books, onAddedToCart }) => {
+type Props = StateProps & DispatchProps & OwnProps;
+
+const BookList: React.FC<Props> = ({ books, load, onAddedToCart }) => {
+  const { getBook } = useBookstoreServiceContext();
+
+  useEffect(() => {
+    load(getBook());
+  }, [load, getBook]);
+
   return (
     <ul className={styles["book-list"]}>
       {books.map((book) => {
@@ -27,8 +44,10 @@ const BookList: React.FC<BookListProps> = ({ books, onAddedToCart }) => {
   );
 };
 
-const mapStateToProps = ({ books }: ICombineReducers) => ({
+const mapStateToProps = ({ books }: RootState) => ({
   books: books.list,
 });
 
-export default connect(mapStateToProps)(BookList);
+export default connect(mapStateToProps, {
+  load,
+})(BookList);
