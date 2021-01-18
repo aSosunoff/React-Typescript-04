@@ -4,7 +4,7 @@ import { Action, THandlers } from "./helpers";
 import { BooksType } from "./types/books-type";
 
 const initialState: IBooksInitialState = {
-    books: []
+    list: []
 }
 
 export type BooksLoadActionType = Action<BooksType.BOOKS_LOAD, { payload: IBook[] }>
@@ -16,7 +16,7 @@ export type BooksActionType =
 const handlers: THandlers<BooksActionType, IBooksInitialState> = {
     BOOKS_LOAD: (state, { payload }) => ({
         ...state,
-        books: payload
+        list: payload
     }),
     /* GET_BOOK: (state) => state, */
     /* [LOAD_CONTACTS + REQUEST]: (draft) => {

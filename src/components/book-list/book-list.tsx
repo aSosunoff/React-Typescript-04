@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import { IBook } from "../../interfaces/IBook";
 import BookListItem from "../book-list-item";
+import { ICombineReducers } from "../../reducers";
 import styles from "./book-list.module.scss";
 
 interface BookListProps {
@@ -25,4 +27,8 @@ const BookList: React.FC<BookListProps> = ({ books, onAddedToCart }) => {
   );
 };
 
-export default BookList;
+const mapStateToProps = ({ books }: ICombineReducers) => ({
+  books: books.list,
+});
+
+export default connect(mapStateToProps)(BookList);
