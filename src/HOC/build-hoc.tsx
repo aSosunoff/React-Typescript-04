@@ -1,4 +1,4 @@
-export function Hoc<TParentProps, TChildProps>(
+export function BuildHoC<TParentProps, TChildProps>(
   ParentComponent: React.ComponentType<TParentProps>,
   mapParentProps: (childProps: TChildProps) => TParentProps
 ) {
