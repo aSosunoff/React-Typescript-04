@@ -1,7 +1,13 @@
 import React from "react";
+import {
+  BookstoreServiceProvider,
+  useBookstoreServiceContext,
+} from "../../context/bookstore-service-context";
+import { BuildHoC } from "../../HOC/build-hoc";
 
 const App: React.FC = () => {
-  return <div>App</div>;
+  const { getBook } = useBookstoreServiceContext();
+  return <div>App {getBook()}</div>;
 };
 
-export default App;
+export default BuildHoC(BookstoreServiceProvider, () => null)(App);

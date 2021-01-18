@@ -4,6 +4,6 @@ export interface IBookstoreServices {
 
 export class BookstoreServices implements IBookstoreServices {
     getBook() {
-        return [];
+        return [1, 2, 3];
     }
 }
