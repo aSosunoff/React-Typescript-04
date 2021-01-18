@@ -1,12 +1,18 @@
 import React, { ErrorInfo } from "react";
 
-type ErrorBoundaryType = { children: (error: boolean) => React.ReactNode };
+interface IErrorBoundaryTypeProps {
+  children: (error: boolean) => React.ReactNode;
+}
+
+interface IErrorBoundaryTypeState {
+  hasError: boolean;
+}
 
 class ErrorBoundary extends React.Component<
-  ErrorBoundaryType,
-  { hasError: boolean }
+  IErrorBoundaryTypeProps,
+  IErrorBoundaryTypeState
 > {
-  constructor(props: ErrorBoundaryType) {
+  constructor(props: IErrorBoundaryTypeProps) {
     super(props);
     this.state = { hasError: false };
   }
