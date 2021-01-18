@@ -1,9 +1,7 @@
 import React from "react";
-import { useBookstoreServiceContext } from "../../context/bookstore-service-context";
 
 const App: React.FC = () => {
-  const { getBook } = useBookstoreServiceContext();
-  return <div>App {getBook()}</div>;
+  return <div>App</div>;
 };
 
 export default App;

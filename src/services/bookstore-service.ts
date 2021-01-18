@@ -1,9 +1,19 @@
+import { IBook } from "../interfaces/IBook";
+
 export interface IBookstoreServices {
-    getBook(): any[]
+    getBook(): IBook[]
 }
 
 export class BookstoreServices implements IBookstoreServices {
     getBook() {
-        return [1, 2, 3];
+        return [{
+            id: 1,
+            title: 'Production-Ready Mictoservices',
+            author: 'Susan J. Fowler'
+        }, {
+            id: 2,
+            title: 'Release It!',
+            author: 'Michael T. Nygard'
+        }];
     }
 }
