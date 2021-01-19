@@ -6,6 +6,7 @@ import * as I from "./interfaces";
 import { Dispatch } from 'redux';
 import { withBookstoreService, withBookstoreServiceProps } from '../../HOC/with-bookstore-service';
 import { Compose } from '../../utils/Compose';
+import { onAddedToCart } from '../../actions/cart-action';
 
 const mapStateToProps = ({ books }: RootState): I.StateProps => ({
     books: books.list,
@@ -15,30 +16,10 @@ const mapStateToProps = ({ books }: RootState): I.StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch, { getBook }: withBookstoreServiceProps) => ({
     fetchBooks: fetchBooks(getBook, dispatch),
+    onAddedToCart: (id: number) => dispatch(onAddedToCart(id)),
 });
 
-export default Compose<React.FC<Pick<I.OwnProps, 'onAddedToCart'>>>(
+export default Compose<React.FC>(
     withBookstoreService,
     connect(mapStateToProps, mapDispatchToProps)
 )(component);
-
-/* export default connect(mapStateToProps, {
-    fetchBooks,
-})(component); */
-
-/* const mapDispatchToProps = (dispatch: Dispatch, { getBook }: withBookstoreServiceProps) => {
-    return {
-        fetchBooks: () => {
-            dispatch(requestBooks());
-
-            getBook()
-                .then((date) => dispatch(loadedBooks(date)))
-                .catch((er) => dispatch(errorBooks(er.message)));
-        },
-    }
-};
-
-export default Compose<React.FC<I.OwnProps>>(
-    withBookstoreService,
-    connect(mapStateToProps, mapDispatchToProps)
-)(component); */

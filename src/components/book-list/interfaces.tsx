@@ -8,9 +8,9 @@ export interface StateProps {
 
 export interface DispatchProps {
   fetchBooks: () => void;
+  onAddedToCart: (id: number) => void;
 }
 
 export interface OwnProps {
-  onAddedToCart: (id: number) => void;
   fetchBooks: () => void;
 }

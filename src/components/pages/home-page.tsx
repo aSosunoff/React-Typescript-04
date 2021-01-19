@@ -5,7 +5,7 @@ import ShoppingCartTable from "../shoping-cart-table";
 const HomePage: React.FC = () => {
   return (
     <div>
-      <BookList onAddedToCart={() => {}} />
+      <BookList />
       <ShoppingCartTable {...({} as any)} />
     </div>
   );

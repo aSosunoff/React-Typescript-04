@@ -16,11 +16,7 @@ const BookList: React.FC<I.StateProps & I.DispatchProps & I.OwnProps> = ({
   if (loading) {
     return <Spinner />;
   } else if (error) {
-    return (
-      <>
-        <ErrorIndicator>{error}</ErrorIndicator>
-      </>
-    );
+    return <ErrorIndicator>{error}</ErrorIndicator>;
   }
 
   return <BookListContainer books={books} onAddedToCart={onAddedToCart} />;
