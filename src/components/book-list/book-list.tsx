@@ -4,23 +4,35 @@ import styles from "./book-list.module.scss";
 import { useBookstoreServiceContext } from "../../context/bookstore-service-context";
 import Spinner from "../spinner";
 import * as I from "./interfaces";
+import ErrorIndicator from "../error-indicator";
 
 const BookList: React.FC<I.StateProps & I.DispatchProps & I.OwnProps> = ({
   books,
-  load,
+  loadedBooks,
   onAddedToCart,
   loading,
-  request,
+  requestBooks,
+  errorBooks,
+  error,
 }) => {
   const { getBook } = useBookstoreServiceContext();
 
   useEffect(() => {
-    request();
-    getBook().then((date) => load(date));
-  }, [load, getBook, request]);
+    requestBooks();
+
+    getBook()
+      .then((date) => loadedBooks(date))
+      .catch((er) => errorBooks(er.message));
+  }, [loadedBooks, getBook, requestBooks, errorBooks]);
 
   if (loading) {
     return <Spinner />;
+  } else if (error) {
+    return (
+      <>
+        <ErrorIndicator>{error}</ErrorIndicator>
+      </>
+    );
   }
 
   return (

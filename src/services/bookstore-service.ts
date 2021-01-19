@@ -21,9 +21,13 @@ export class BookstoreServices implements IBookstoreServices {
     }];
 
     getBook = () => {
-        return new Promise<IBook[]>((resolve) => {
+        return new Promise<IBook[]>((resolve, reject) => {
             setTimeout(() => {
-                resolve(this.date);
+                if (Math.random() > 0.75) {
+                    reject(new Error('Возникла ошибка'));
+                } else {
+                    resolve(this.date);
+                }
             }, 700);
         });
     }

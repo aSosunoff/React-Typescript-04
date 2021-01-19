@@ -3,11 +3,13 @@ import { IBook } from "../../interfaces/IBook";
 export interface StateProps {
   books: IBook[];
   loading: boolean;
+  error: string;
 }
 
 export interface DispatchProps {
-  load: (payload: IBook[]) => void;
-  request: () => void;
+  loadedBooks: (payload: IBook[]) => void;
+  requestBooks: () => void;
+  errorBooks: (payload: string) => void;
 }
 
 export interface OwnProps {
