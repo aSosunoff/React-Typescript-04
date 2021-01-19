@@ -1,5 +1,4 @@
 import React from "react";
-import cn from "classnames";
 import styles from "./shoping-cart-table.module.scss";
 
 interface ShoppingCartTableProps {

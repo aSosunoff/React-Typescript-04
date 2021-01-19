@@ -1,32 +1,25 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { IBook } from "../../interfaces/IBook";
 import BookListItem from "../book-list-item";
-import { RootState } from "../../reducers";
 import styles from "./book-list.module.scss";
 import { useBookstoreServiceContext } from "../../context/bookstore-service-context";
-import { load } from "../../actions/books-action";
+import Spinner from "../spinner";
+import * as I from "./interfaces";
 
-interface StateProps {
-  books: IBook[];
-}
-
-interface DispatchProps {
-  load: (payload: IBook[]) => void;
-}
-
-interface OwnProps {
-  onAddedToCart: (id: number) => void;
-}
-
-type Props = StateProps & DispatchProps & OwnProps;
-
-const BookList: React.FC<Props> = ({ books, load, onAddedToCart }) => {
+const BookList: React.FC<I.StateProps & I.DispatchProps & I.OwnProps> = ({
+  books,
+  load,
+  onAddedToCart,
+  loading,
+}) => {
   const { getBook } = useBookstoreServiceContext();
 
   useEffect(() => {
-    load(getBook());
+    getBook().then((date) => load(date));
   }, [load, getBook]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <ul className={styles["book-list"]}>
@@ -44,10 +37,4 @@ const BookList: React.FC<Props> = ({ books, load, onAddedToCart }) => {
   );
 };
 
-const mapStateToProps = ({ books }: RootState) => ({
-  books: books.list,
-});
-
-export default connect(mapStateToProps, {
-  load,
-})(BookList);
+export default BookList;
