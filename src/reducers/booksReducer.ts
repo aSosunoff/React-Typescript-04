@@ -17,10 +17,6 @@ export type BooksActionType =
     | ActionTypeBooksRequest
     | ActionTypeBooksError;
 
-function endReducer<T>(state: T, _action: never): T {
-    return state;
-}
-
 const reducer = (state: IBooksInitialState = initialState, action: BooksActionType) => {
     switch (action.type) {
         case 'BOOKS_SUCCESS':
@@ -44,7 +40,7 @@ const reducer = (state: IBooksInitialState = initialState, action: BooksActionTy
                 list: [],
             });
 
-        default: return endReducer(state, action);
+        default: return state;
     }
 }
 

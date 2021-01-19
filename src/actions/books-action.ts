@@ -1,6 +1,6 @@
 import { IBook } from "../interfaces/IBook";
 import { Dispatch } from 'redux';
-import { ActionTypeBooksLoad, ActionTypeBooksRequest, ActionTypeBooksError } from "../reducers/books";
+import { ActionTypeBooksLoad, ActionTypeBooksRequest, ActionTypeBooksError } from "../reducers/booksReducer";
 
 const loadedBooks = (payload: IBook[]): ActionTypeBooksLoad => {
     return {
