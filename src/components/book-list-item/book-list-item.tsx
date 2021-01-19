@@ -8,17 +8,17 @@ interface BookListItemProps {
 }
 
 const BookListItem: React.FC<BookListItemProps> = ({ book, onAddedToCart }) => {
-  const { title, author } = book;
+  const { title, author, coverImage, price } = book;
 
   return (
     <div className={styles["book-list-item"]}>
-      {/* <div className={styles["book-cover"]}>
+      <div className={styles["book-cover"]}>
         <img src={coverImage} alt="cover" />
-      </div> */}
+      </div>
       <div className={styles["book-details"]}>
         <span className={styles["book-title"]}>{title}</span>
         <div className={styles["book-author"]}>{author}</div>
-        {/* <div className={styles["book-price"]}>${price}</div> */}
+        <div className={styles["book-price"]}>${price}</div>
         <button onClick={onAddedToCart} className="btn btn-info add-to-cart">
           Add to cart
         </button>
