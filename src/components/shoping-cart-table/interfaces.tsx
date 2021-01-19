@@ -1,9 +1,12 @@
-export interface StateProps {}
+import { ICart } from "../../interfaces/ICart";
+
+export interface StateProps {
+  carts: ICart[];
+}
 
 export interface DispatchProps {}
 
 export interface OwnProps {
-  items: [];
   total: number;
   onIncrease: (id: any) => void;
   onDecrease: (id: any) => void;

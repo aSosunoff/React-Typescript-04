@@ -4,7 +4,7 @@ import * as I from "./interfaces";
 
 const ShoppingCartTable: React.FC<
   I.StateProps & I.DispatchProps & I.OwnProps
-> = ({ items, total, onIncrease, onDecrease, onDelete }) => {
+> = ({ carts, total, onIncrease, onDecrease, onDelete }) => {
   return (
     <div className={styles["shopping-cart-table"]}>
       <h2>Your Order</h2>
@@ -21,10 +21,10 @@ const ShoppingCartTable: React.FC<
         </thead>
 
         <tbody>
-          {items.map(({ id, title, count, total }, idx) => (
+          {carts.map(({ id, name, count, total }, idx) => (
             <tr key={id}>
               <td>{idx + 1}</td>
-              <td>{title}</td>
+              <td>{name}</td>
               <td>{count}</td>
               <td>${total}</td>
               <td>

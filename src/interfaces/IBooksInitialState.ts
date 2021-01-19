@@ -1,7 +1,6 @@
+import { IBaseInitialState } from "./IBaseInitialState";
 import { IBook } from "./IBook";
 
-export interface IBooksInitialState {
-    error: string,
-    loading: boolean,
+export interface IBooksInitialState extends IBaseInitialState {
     list: IBook[],
 }
