@@ -1,21 +1,10 @@
 import React from "react";
 import styles from "./shoping-cart-table.module.scss";
+import * as I from "./interfaces";
 
-interface ShoppingCartTableProps {
-  items: [];
-  total: number;
-  onIncrease: (id: any) => void;
-  onDecrease: (id: any) => void;
-  onDelete: (id: any) => void;
-}
-
-const ShoppingCartTable: React.FC<ShoppingCartTableProps> = ({
-  items,
-  total,
-  onIncrease,
-  onDecrease,
-  onDelete,
-}) => {
+const ShoppingCartTable: React.FC<
+  I.StateProps & I.DispatchProps & I.OwnProps
+> = ({ items, total, onIncrease, onDecrease, onDelete }) => {
   return (
     <div className={styles["shopping-cart-table"]}>
       <h2>Your Order</h2>
