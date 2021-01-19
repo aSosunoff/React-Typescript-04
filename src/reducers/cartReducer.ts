@@ -19,9 +19,15 @@ const initialState: ICartInitialState = {
 }
 
 export type ActionTypeCartSuccess = Action<'CART_SUCCESS'>
+export type ActionTypeCartDelete = Action<'CART_DELETE'>
+export type ActionTypeCartIncrease = Action<'CART_INCREASE'>
+export type ActionTypeCartDecrease = Action<'CART_DECREASE'>
 
 export type BooksActionType =
-    | ActionTypeCartSuccess;
+    | ActionTypeCartSuccess
+    | ActionTypeCartDelete
+    | ActionTypeCartIncrease
+    | ActionTypeCartDecrease;
 
 const reducer = (state: ICartInitialState = initialState, action: BooksActionType) => {
     switch (action.type) {
@@ -31,6 +37,12 @@ const reducer = (state: ICartInitialState = initialState, action: BooksActionTyp
                 loading: false,
                 error: '',
             });
+        case 'CART_DELETE':
+            return state;
+        case 'CART_INCREASE':
+            return state;
+        case 'CART_DECREASE':
+            return state;
 
         default: return state;
     }

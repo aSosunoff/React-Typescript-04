@@ -29,7 +29,7 @@ const ShoppingCartTable: React.FC<
               <td>${total}</td>
               <td>
                 <button
-                  onClick={() => onDelete(id)}
+                  onClick={() => onDecrease(id)}
                   className="btn btn-outline-danger btn-sm float-right"
                 >
                   <i className="fa fa-trash-o" />
@@ -41,7 +41,7 @@ const ShoppingCartTable: React.FC<
                   <i className="fa fa-plus-circle" />
                 </button>
                 <button
-                  onClick={() => onDecrease(id)}
+                  onClick={() => onDelete(id)}
                   className="btn btn-outline-warning btn-sm float-right"
                 >
                   <i className="fa fa-minus-circle" />
