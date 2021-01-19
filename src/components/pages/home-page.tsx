@@ -6,7 +6,7 @@ const HomePage: React.FC = () => {
   return (
     <div>
       <BookList onAddedToCart={() => {}} />
-      <ShoppingCartTable items={[]} {...({} as any)} />
+      <ShoppingCartTable {...({} as any)} />
     </div>
   );
 };
