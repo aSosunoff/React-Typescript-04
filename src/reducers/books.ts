@@ -8,9 +8,9 @@ const initialState: IBooksInitialState = {
     error: '',
 }
 
-export type ActionTypeBooksLoad = Action<'BOOKS_LOAD', { payload: IBook[] }>
+export type ActionTypeBooksLoad = Action<'BOOKS_SUCCESS', { payload: IBook[] }>
 export type ActionTypeBooksRequest = Action<'BOOKS_REQUEST'>
-export type ActionTypeBooksError = Action<'BOOKS_ERROR', { payload: string }>
+export type ActionTypeBooksError = Action<'BOOKS_FAILURE', { payload: string }>
 
 export type BooksActionType =
     | ActionTypeBooksLoad
@@ -23,7 +23,7 @@ function endReducer<T>(state: T, _action: never): T {
 
 const reducer = (state: IBooksInitialState = initialState, action: BooksActionType) => {
     switch (action.type) {
-        case 'BOOKS_LOAD':
+        case 'BOOKS_SUCCESS':
             return ({
                 ...state,
                 loading: false,
@@ -36,7 +36,7 @@ const reducer = (state: IBooksInitialState = initialState, action: BooksActionTy
                 error: '',
                 loading: true
             });
-        case 'BOOKS_ERROR':
+        case 'BOOKS_FAILURE':
             return ({
                 ...state,
                 loading: false,

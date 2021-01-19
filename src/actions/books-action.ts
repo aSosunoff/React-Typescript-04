@@ -4,7 +4,7 @@ import { ActionTypeBooksLoad, ActionTypeBooksRequest, ActionTypeBooksError } fro
 
 const loadedBooks = (payload: IBook[]): ActionTypeBooksLoad => {
     return {
-        type: 'BOOKS_LOAD',
+        type: 'BOOKS_SUCCESS',
         payload
     }
 };
@@ -17,7 +17,7 @@ const requestBooks = (): ActionTypeBooksRequest => {
 
 const errorBooks = (payload: string): ActionTypeBooksError => {
     return {
-        type: 'BOOKS_ERROR',
+        type: 'BOOKS_FAILURE',
         payload
     }
 };
