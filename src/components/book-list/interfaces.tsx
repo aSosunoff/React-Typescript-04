@@ -7,11 +7,10 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  loadedBooks: (payload: IBook[]) => void;
-  requestBooks: () => void;
-  errorBooks: (payload: string) => void;
+  fetchBooks: () => void;
 }
 
 export interface OwnProps {
   onAddedToCart: (id: number) => void;
+  fetchBooks: () => void;
 }
