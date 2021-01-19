@@ -10,12 +10,14 @@ const BookList: React.FC<I.StateProps & I.DispatchProps & I.OwnProps> = ({
   load,
   onAddedToCart,
   loading,
+  request,
 }) => {
   const { getBook } = useBookstoreServiceContext();
 
   useEffect(() => {
+    request();
     getBook().then((date) => load(date));
-  }, [load, getBook]);
+  }, [load, getBook, request]);
 
   if (loading) {
     return <Spinner />;

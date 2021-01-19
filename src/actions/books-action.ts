@@ -1,10 +1,15 @@
 import { IBook } from "../interfaces/IBook";
-import { BooksLoadActionType } from "../reducers/books";
-import { BooksType } from "../reducers/types/books-type";
+import { ActionTypeBooksLoad, ActionTypeBooksRequest } from "../reducers/books";
 
-export const load = (payload: IBook[]): BooksLoadActionType => {
+export const load = (payload: IBook[]): ActionTypeBooksLoad => {
     return {
-        type: BooksType.BOOKS_LOAD,
+        type: 'BOOKS_LOAD',
         payload
+    }
+};
+
+export const request = (): ActionTypeBooksRequest => {
+    return {
+        type: 'BOOKS_REQUEST',
     }
 };

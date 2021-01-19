@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import component from './book-list';
 import { RootState } from "../../reducers";
-import { load } from "../../actions/books-action";
+import { load, request } from "../../actions/books-action";
 import * as I from "./interfaces";
 
 const mapStateToProps = ({ books }: RootState): I.StateProps => ({
@@ -11,4 +11,5 @@ const mapStateToProps = ({ books }: RootState): I.StateProps => ({
 
 export default connect(mapStateToProps, {
     load,
+    request,
 })(component);

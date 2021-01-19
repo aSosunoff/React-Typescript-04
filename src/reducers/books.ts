@@ -1,37 +1,34 @@
 import { IBook } from "../interfaces/IBook";
 import { IBooksInitialState } from "../interfaces/IBooksInitialState";
-import { Action, THandlers } from "./helpers";
-import { BooksType } from "./types/books-type";
+import { Action } from "./helpers";
 
 const initialState: IBooksInitialState = {
     loading: true,
     list: [],
 }
 
-export type BooksLoadActionType = Action<BooksType.BOOKS_LOAD, { payload: IBook[] }>
+export type ActionTypeBooksLoad = Action<'BOOKS_LOAD', { payload: IBook[] }>
+export type ActionTypeBooksRequest = Action<'BOOKS_REQUEST'>
 
 export type BooksActionType =
-    | BooksLoadActionType;
-/* | Action<BookTypes.GET_BOOK, { id: string }> */
-
-const handlers: THandlers<BooksActionType, IBooksInitialState> = {
-    BOOKS_LOAD: (state, { payload }) => ({
-        ...state,
-        loading: false,
-        list: payload,
-    }),
-    /* GET_BOOK: (state) => state, */
-    /* [LOAD_CONTACTS + REQUEST]: (draft) => {
-        draft.loading = true;
-        draft.loaded = false;
-        draft.error = null;
-    },*/
-    DEFAULT: (state) => state,
-};
+    | ActionTypeBooksLoad
+    | ActionTypeBooksRequest;
 
 const reducer = (state: IBooksInitialState = initialState, action: BooksActionType) => {
-    const handler = handlers[action.type] || handlers.DEFAULT;
-    return handler(state, action);
+    switch (action.type) {
+        case 'BOOKS_LOAD':
+            return ({
+                ...state,
+                loading: false,
+                list: action.payload,
+            });
+        case 'BOOKS_REQUEST':
+            return ({
+                ...state,
+                loading: true
+            });
+        default: return state;
+    }
 }
 
 export default reducer 

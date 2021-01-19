@@ -7,6 +7,7 @@ export interface StateProps {
 
 export interface DispatchProps {
   load: (payload: IBook[]) => void;
+  request: () => void;
 }
 
 export interface OwnProps {
