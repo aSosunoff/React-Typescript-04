@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import component from './book-list';
-import { RootState } from "../../reducers";
-import { fetchBooks } from "../../actions/books-action";
+import { RootState } from "../../redux/reducers";
+import { fetchBooks } from "../../redux/actions/books-action";
 import * as I from "./interfaces";
 import { Dispatch } from 'redux';
 import { withBookstoreService, withBookstoreServiceProps } from '../../HOC/with-bookstore-service';
 import { Compose } from '../../utils/Compose';
-import { onAddedToCart } from '../../actions/cart-action';
+import { onAddedToCart } from '../../redux/actions/cart-action';
 
 const mapStateToProps = ({ books }: RootState): I.StateProps => ({
     books: books.list,

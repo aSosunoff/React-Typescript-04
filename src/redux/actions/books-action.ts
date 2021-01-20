@@ -1,4 +1,4 @@
-import { IBook } from "../interfaces/IBook";
+import { IBook } from "../../interfaces/IBook";
 import { Dispatch } from 'redux';
 import { ActionTypeBooksLoad, ActionTypeBooksRequest, ActionTypeBooksError } from "../reducers/booksReducer";
 

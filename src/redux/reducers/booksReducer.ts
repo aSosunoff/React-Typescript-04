@@ -1,5 +1,5 @@
-import { IBook } from "../interfaces/IBook";
-import { IBooksInitialState } from "../interfaces/IBooksInitialState";
+import { IBook } from "../../interfaces/IBook";
+import { IBooksInitialState } from "../../interfaces/IBooksInitialState";
 import { Action } from "./helpers";
 
 const initialState: IBooksInitialState = {
