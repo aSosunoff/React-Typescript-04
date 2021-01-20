@@ -3,13 +3,10 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import reducer from "./redux/reducers";
+import { logMiddleware } from "./redux/middleware/logMiddleware";
 /* import api from "./middleware/api"; */
 
-/* import LocalStorage from "../utils/LocalStorage"; */
-
-const enhancer = applyMiddleware(thunk);
-
-/* const persistedState = LocalStorage.store ? LocalStorage.store : {}; */
+const enhancer = applyMiddleware(thunk, logMiddleware);
 
 export default createStore(
     reducer,
