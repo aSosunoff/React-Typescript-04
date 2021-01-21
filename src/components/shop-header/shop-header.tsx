@@ -3,13 +3,12 @@ import cn from "classnames";
 import styles from "./shop-header.module.scss";
 import { Link } from "react-router-dom";
 import { Pages } from "../../enums/Pages";
+import * as I from "./interfaces";
 
-interface ShopHeaderProps {
-  numItems: number;
-  total: number;
-}
-
-const ShopHeader: React.FC<ShopHeaderProps> = ({ numItems, total }) => {
+const ShopHeader: React.FC<I.StateProps & I.DispatchProps & I.OwnProps> = ({
+  numItems,
+  total,
+}) => {
   return (
     <header className={cn(styles["shop-header"], "row")}>
       <Link to={Pages.Home}>

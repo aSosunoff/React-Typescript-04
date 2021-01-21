@@ -7,8 +7,8 @@ import ShopHeader from "../shop-header";
 const App: React.FC = () => {
   return (
     <main role="main" className="container">
-      <ShopHeader numItems={1} total={123} />
-      
+      <ShopHeader />
+
       <Switch>
         <Route exact path={Pages.Home}>
           <HomePage />
