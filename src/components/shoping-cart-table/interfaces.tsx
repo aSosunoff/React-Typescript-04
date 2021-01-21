@@ -2,6 +2,7 @@ import { ICart } from "../../interfaces/ICart";
 
 export interface StateProps {
   carts: ICart[];
+  total: number;
 }
 
 export interface DispatchProps {
@@ -10,6 +11,4 @@ export interface DispatchProps {
   onDelete: (id: number) => void;
 }
 
-export interface OwnProps {
-  total: number;
-}
+export interface OwnProps {}

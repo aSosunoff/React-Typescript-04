@@ -6,6 +6,7 @@ import { cart, onDecrease, onDelete, onIncrease } from '../../redux/actions/cart
 
 const mapStateToProps = ({ cart }: RootState): I.StateProps => ({
     carts: cart.list,
+    total: cart.list.reduce((res, item) => res + item.total, 0),
 });
 
 export default connect(mapStateToProps, {
