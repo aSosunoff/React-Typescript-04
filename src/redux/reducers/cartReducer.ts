@@ -41,11 +41,9 @@ const handlers: Handlers<ICartInitialState, BooksActionType> = {
         const cartIncIndex = draft.list.findIndex(item => item.id === cartInc.id);
 
         const count = cartInc.count + 1;
-        draft.list.splice(cartIncIndex, 1, {
-            ...cartInc,
-            count,
-            total: action.price * count
-        });
+        cartInc.count++;
+        cartInc.total = action.price * count;
+        draft.list.splice(cartIncIndex, 1, cartInc);
     },
     CART_DECREASE: (draft, action) => {
         const cartDec = draft.list.find(item => item.id === action.id);
@@ -56,15 +54,12 @@ const handlers: Handlers<ICartInitialState, BooksActionType> = {
 
         const cartDecIndex = draft.list.findIndex(item => item.id === cartDec.id);
 
-        const countDec = cartDec.count - 1;
-        if (countDec === 0) {
+        cartDec.count--;
+        if (cartDec.count === 0) {
             draft.list = draft.list.filter(item => item.id !== action.id)
         } else {
-            draft.list.splice(cartDecIndex, 1, {
-                ...cartDec,
-                count: countDec,
-                total: action.price * countDec
-            });
+            cartDec.total = action.price * cartDec.count;
+            draft.list.splice(cartDecIndex, 1, cartDec);
         }
     },
     CART_ADDED_BOOK: (draft, action): any => {
@@ -84,12 +79,9 @@ const handlers: Handlers<ICartInitialState, BooksActionType> = {
         } else {
             const bookCartIndex = draft.list.findIndex(item => item.id === action.payload?.id);
 
-            const countNew = cart.count + 1;
-            draft.list.splice(bookCartIndex, 1, {
-                ...cart,
-                count: countNew,
-                total: action.payload.price * countNew
-            });
+            cart.count++;
+            cart.total = action.payload.price * cart.count;
+            draft.list.splice(bookCartIndex, 1, cart);
         }
     },
     DEFAULT: (draft) => draft
