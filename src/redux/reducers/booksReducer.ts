@@ -1,3 +1,4 @@
+import produce, { Draft } from "immer";
 import { IBook } from "../../interfaces/IBook";
 import { IBooksInitialState } from "../../interfaces/IBooksInitialState";
 import { Action, Handlers, reducer } from "./helpers";
@@ -18,26 +19,23 @@ export type BooksActionType =
     | ActionTypeBooksError;
 
 const handlers: Handlers<IBooksInitialState, BooksActionType> = {
-    BOOKS_SUCCESS: (state, action) => ({
-        ...state,
-        loading: false,
-        error: '',
-        list: action.payload,
-    }),
-    BOOKS_REQUEST: (state) => ({
-        ...state,
-        error: '',
-        loading: true
-    }),
-    BOOKS_FAILURE: (state, action) => ({
-        ...state,
-        loading: false,
-        error: action.payload,
-        list: [],
-    }),
-    DEFAULT: state => ({ ...state }),
+    BOOKS_SUCCESS: (draft, action) => {
+        draft.loading = false;
+        draft.error = '';
+        draft.list = action.payload;
+    },
+    BOOKS_REQUEST: (draft) => {
+        draft.error = '';
+        draft.loading = true;
+    },
+    BOOKS_FAILURE: (draft, action): any => {
+        draft.loading = false;
+        draft.error = action.payload;
+        draft.list = [];
+    },
+    DEFAULT: draft => draft,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state: IBooksInitialState = initialState, action: BooksActionType): IBooksInitialState =>
-    reducer(state, action, handlers);
+export default produce((state: Draft<IBooksInitialState> = initialState, action: BooksActionType): IBooksInitialState =>
+    reducer(state, action, handlers));

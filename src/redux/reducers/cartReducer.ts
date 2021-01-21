@@ -1,3 +1,4 @@
+import produce, { Draft } from "immer";
 import { IBook } from "../../interfaces/IBook";
 import { ICartInitialState } from "../../interfaces/ICartInitialState";
 import { Action, Handlers, reducer } from "./helpers";
@@ -23,106 +24,78 @@ export type BooksActionType =
     | ActionTypeCartAddBook;
 
 const handlers: Handlers<ICartInitialState, BooksActionType> = {
-    CART_SUCCESS: (state) => ({
-        ...state,
-        loading: false,
-        error: '',
-    }),
-    CART_DELETE: (state, action) => ({
-        ...state,
-        list: state.list.filter(item => item.id !== action.payload)
-    }),
-    CART_INCREASE: (state, action) => {
-        const cartInc = state.list.find(item => item.id === action.id);
+    CART_SUCCESS: (draft) => {
+        draft.loading = false;
+        draft.error = '';
+    },
+    CART_DELETE: (draft, action) => {
+        draft.list = draft.list.filter(item => item.id !== action.payload)
+    },
+    CART_INCREASE: (draft, action) => {
+        const cartInc = draft.list.find(item => item.id === action.id);
 
         if (!cartInc) {
-            return state;
+            return draft;
         }
 
-        const cartIncIndex = state.list.findIndex(item => item.id === cartInc.id);
+        const cartIncIndex = draft.list.findIndex(item => item.id === cartInc.id);
 
-        const newList = [...state.list];
         const count = cartInc.count + 1;
-        newList.splice(cartIncIndex, 1, {
+        draft.list.splice(cartIncIndex, 1, {
             ...cartInc,
             count,
             total: action.price * count
         });
-
-        return ({
-            ...state,
-            list: newList
-        })
     },
-    CART_DECREASE: (state, action) => {
-        const cartDec = state.list.find(item => item.id === action.id);
+    CART_DECREASE: (draft, action) => {
+        const cartDec = draft.list.find(item => item.id === action.id);
 
         if (!cartDec) {
-            return state;
+            return draft;
         }
 
-        const cartDecIndex = state.list.findIndex(item => item.id === cartDec.id);
-
+        const cartDecIndex = draft.list.findIndex(item => item.id === cartDec.id);
 
         const countDec = cartDec.count - 1;
         if (countDec === 0) {
-            return ({
-                ...state,
-                list: state.list.filter(item => item.id !== action.id)
+            draft.list = draft.list.filter(item => item.id !== action.id)
+        } else {
+            draft.list.splice(cartDecIndex, 1, {
+                ...cartDec,
+                count: countDec,
+                total: action.price * countDec
             });
         }
-
-        const newListDec = [...state.list];
-
-        newListDec.splice(cartDecIndex, 1, {
-            ...cartDec,
-            count: countDec,
-            total: action.price * countDec
-        });
-
-        return ({
-            ...state,
-            list: newListDec
-        });
     },
-    CART_ADDED_BOOK: (state, action) => {
+    CART_ADDED_BOOK: (draft, action): any => {
         if (!action.payload) {
-            return state;
+            return draft;
         }
 
-        const cart = state.list.find(item => item.id === action.payload?.id);
+        const cart = draft.list.find(item => item.id === action.payload?.id);
 
         if (!cart) {
-            return {
-                ...state,
-                list: [...state.list, {
-                    id: action.payload.id,
-                    count: 1,
-                    name: action.payload.title,
-                    total: action.payload.price,
-                }]
-            } as ICartInitialState;
+            draft.list.push({
+                id: action.payload.id,
+                count: 1,
+                name: action.payload.title,
+                total: action.payload.price,
+            });
+        } else {
+            const bookCartIndex = draft.list.findIndex(item => item.id === action.payload?.id);
+
+            const countNew = cart.count + 1;
+            draft.list.splice(bookCartIndex, 1, {
+                ...cart,
+                count: countNew,
+                total: action.payload.price * countNew
+            });
         }
-
-        const bookCartIndex = state.list.findIndex(item => item.id === action.payload?.id);
-
-        const list = [...state.list];
-        const countNew = cart.count + 1;
-        list.splice(bookCartIndex, 1, {
-            ...cart,
-            count: countNew,
-            total: action.payload.price * countNew
-        });
-
-        return ({
-            ...state,
-            list
-        });
     },
-    DEFAULT: (state) => state
+    DEFAULT: (draft) => draft
 };
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state: ICartInitialState = initialState, action: BooksActionType): ICartInitialState =>
-    reducer(state, action, handlers);
+export default produce((state: Draft<ICartInitialState> = initialState, action: BooksActionType): ICartInitialState =>
+    reducer(state, action, handlers));
