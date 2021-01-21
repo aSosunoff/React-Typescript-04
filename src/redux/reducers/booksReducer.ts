@@ -1,6 +1,6 @@
 import { IBook } from "../../interfaces/IBook";
 import { IBooksInitialState } from "../../interfaces/IBooksInitialState";
-import { Action } from "./helpers";
+import { Action, Handlers } from "./helpers";
 
 const initialState: IBooksInitialState = {
     loading: true,
@@ -17,31 +17,30 @@ export type BooksActionType =
     | ActionTypeBooksRequest
     | ActionTypeBooksError;
 
-const reducer = (state: IBooksInitialState = initialState, action: BooksActionType) => {
-    switch (action.type) {
-        case 'BOOKS_SUCCESS':
-            return ({
-                ...state,
-                loading: false,
-                error: '',
-                list: action.payload,
-            });
-        case 'BOOKS_REQUEST':
-            return ({
-                ...state,
-                error: '',
-                loading: true
-            });
-        case 'BOOKS_FAILURE':
-            return ({
-                ...state,
-                loading: false,
-                error: action.payload,
-                list: [],
-            });
+const handlers: Handlers<BooksActionType, IBooksInitialState> = {
+    'BOOKS_SUCCESS': (state, action) => ({
+        ...state,
+        loading: false,
+        error: '',
+        list: action.payload,
+    }),
+    'BOOKS_REQUEST': (state) => ({
+        ...state,
+        error: '',
+        loading: true
+    }),
+    'BOOKS_FAILURE': (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.payload,
+        list: [],
+    }),
+    'DEFAULT': state => ({ ...state }),
+};
 
-        default: return state;
-    }
-}
+const reducer = (state: IBooksInitialState = initialState, action: BooksActionType): IBooksInitialState => {
+    const handler = handlers[action.type] || handlers.DEFAULT;
+    return handler(state, action);
+};
 
-export default reducer 
+export default reducer;
