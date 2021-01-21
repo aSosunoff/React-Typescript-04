@@ -35,7 +35,7 @@ const handlers: Handlers<IBooksInitialState, BooksActionType> = {
         error: action.payload,
         list: [],
     }),
-    'DEFAULT': state => ({ ...state }),
+    DEFAULT: state => ({ ...state }),
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
