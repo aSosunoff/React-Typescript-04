@@ -4,9 +4,18 @@ type HandlerFunc<S, T = void> = T extends void
     ? (state: S) => S
     : (state: S, action: T) => S;
 
-export type Handlers<T extends Action<any>, S, D extends string = 'DEFAULT'> =
-    T extends { type: string }
-    ? { [R in T['type']]: HandlerFunc<S, T> }
-    & { [RR in D]: HandlerFunc<S> }
+export type Handlers<TState, TAction extends Action<any>, TOtherFields extends string = 'DEFAULT'> =
+    TAction extends { type: string }
+    ? { [R in TAction['type']]: HandlerFunc<TState, TAction> }
+    & { [RR in TOtherFields]: HandlerFunc<TState> }
     & { [key: string]: any }
     : never;
+
+export const reducer = <
+    TState,
+    TAction extends Action<any>,
+    THandlers extends Handlers<TState, TAction>>
+    (state: TState, action: TAction, handlers: THandlers): TState => {
+    const handler = handlers[action.type] || handlers.DEFAULT;
+    return handler(state, action);
+};
