@@ -1,25 +1,25 @@
 import { IBook } from "../../interfaces/IBook";
 import { Dispatch } from "redux";
 import {
-  ActionTypeBooksLoad,
-  ActionTypeBooksRequest,
-  ActionTypeBooksError,
-} from "../reducers/booksReducer";
+  ActionType_Books_Success,
+  ActionType_Books_Request,
+  ActionType_Books_Error,
+} from "../types";
 
-const loadedBooks = (payload: IBook[]): ActionTypeBooksLoad => {
+const loadedBooks = (payload: IBook[]): ActionType_Books_Success => {
   return {
     type: "BOOKS_SUCCESS",
     payload,
   };
 };
 
-const requestBooks = (): ActionTypeBooksRequest => {
+const requestBooks = (): ActionType_Books_Request => {
   return {
     type: "BOOKS_REQUEST",
   };
 };
 
-const errorBooks = (payload: string): ActionTypeBooksError => {
+const errorBooks = (payload: string): ActionType_Books_Error => {
   return {
     type: "BOOKS_FAILURE",
     payload,

@@ -1,19 +1,13 @@
 import produce, { Draft } from "immer";
-import { IBook } from "../../interfaces/IBook";
 import { IBooksInitialState } from "../../interfaces/IBooksInitialState";
-import { Action, Handlers, reducer } from "./helpers";
+import { BooksActionType } from "../types";
+import { Handlers, reducer } from "./helpers";
 
 const initialState: IBooksInitialState = {
   loading: true,
   list: [],
   error: "",
 };
-
-export type ActionTypeBooksLoad = Action<"BOOKS_SUCCESS", { payload: IBook[] }>;
-export type ActionTypeBooksRequest = Action<"BOOKS_REQUEST">;
-export type ActionTypeBooksError = Action<"BOOKS_FAILURE", { payload: string }>;
-
-export type BooksActionType = ActionTypeBooksLoad | ActionTypeBooksRequest | ActionTypeBooksError;
 
 const handlers: Handlers<IBooksInitialState, BooksActionType> = {
   BOOKS_SUCCESS: (draft, action) => {
