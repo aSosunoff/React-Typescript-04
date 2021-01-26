@@ -6,7 +6,7 @@ const HomePage: React.FC = () => {
   return (
     <div>
       <BookList />
-      <ShoppingCartTable {...({} as any)} />
+      <ShoppingCartTable />
     </div>
   );
 };
