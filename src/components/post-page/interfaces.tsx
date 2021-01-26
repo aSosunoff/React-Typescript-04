@@ -3,6 +3,7 @@ import { IPost } from "../../interfaces/IPost";
 export interface StateProps {
   loading: boolean;
   posts: IPost[];
+  error: string;
 }
 
 export interface DispatchProps {

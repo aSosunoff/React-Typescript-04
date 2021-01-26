@@ -7,6 +7,7 @@ const PostPage: React.FC<I.StateProps & I.DispatchProps & I.OwnProps> = ({
   posts,
   fetchPost,
   loading,
+  error,
 }) => {
   useEffect(() => {
     fetchPost();
@@ -14,6 +15,10 @@ const PostPage: React.FC<I.StateProps & I.DispatchProps & I.OwnProps> = ({
 
   if (loading) {
     return <Spinner />;
+  }
+
+  if (error) {
+    return <>{error}</>;
   }
 
   return (

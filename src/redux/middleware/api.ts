@@ -7,6 +7,13 @@ import { Action } from "../reducers/helpers";
 /* window.axios = axios; */
 /* http://zetcode.com/javascript/jsonserver/ */
 
+const error = () => {
+  if (Math.random() > 0.5) {
+    return Promise.reject(new Error("Возникла ошибка"));
+  }
+  return Promise.resolve();
+};
+
 export const API: Middleware<{}, RootState> = () => (next) => async (
   action: Action<any, { payload: any }>
 ) => {
@@ -17,6 +24,7 @@ export const API: Middleware<{}, RootState> = () => (next) => async (
   next({ ...rest, type: type + REQUEST });
 
   try {
+    await error();
     if (methodAPI) {
       const { data } = await (axios as any)[methodAPI](CallAPI, paramsAPI);
       return next({ ...rest, type: type + SUCCESS, payload: data });
@@ -24,6 +32,6 @@ export const API: Middleware<{}, RootState> = () => (next) => async (
       throw new Error("Is not method API");
     }
   } catch (error) {
-    throw next({ ...rest, type: type + FAILURE, payload: error });
+    next({ ...rest, type: type + FAILURE, payload: error.message });
   }
 };

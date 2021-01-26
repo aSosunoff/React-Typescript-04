@@ -25,9 +25,9 @@ export type ActionTypes_Post =
 
 /* Books */
 
-export type ActionType_Books_Success = Action<"BOOKS_SUCCESS", { payload: IBook[] }>;
-export type ActionType_Books_Request = Action<"BOOKS_REQUEST">;
-export type ActionType_Books_Error = Action<"BOOKS_FAILURE", { payload: string }>;
+export type ActionType_Books_Success = Action<SUCCESS_TYPE<"BOOKS">, { payload: IBook[] }>;
+export type ActionType_Books_Request = Action<REQUEST_TYPE<"BOOKS">>;
+export type ActionType_Books_Error = Action<FAILURE_TYPE<"BOOKS">, { payload: string }>;
 
 export type ActionType_Books =
   | ActionType_Books_Success
@@ -38,7 +38,7 @@ export type ActionType_Books =
 
 /* Cart */
 
-export type ActionType_Cart_Success = Action<"CART_SUCCESS">;
+export type ActionType_Cart_Success = Action<SUCCESS_TYPE<"CART">>;
 export type ActionType_Cart_Delete = Action<"CART_DELETE", { payload: number }>;
 export type ActionType_Cart_Increase = Action<"CART_INCREASE", { id: number; price: number }>;
 export type ActionType_Cart_Decrease = Action<"CART_DECREASE", { id: number; price: number }>;

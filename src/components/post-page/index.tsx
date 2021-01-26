@@ -9,6 +9,7 @@ import { postRequest } from "../../redux/actions/post-action";
 const mapStateToProps = ({ post }: RootState): I.StateProps => ({
   posts: post.list,
   loading: post.loading,
+  error: post.error,
 });
 
 /* const mapDispatchToProps = (dispatch: Dispatch): I.DispatchProps => ({
