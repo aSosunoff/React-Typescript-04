@@ -1,6 +1,6 @@
 import produce, { Draft } from "immer";
 import { IBooksInitialState } from "../../interfaces/IBooksInitialState";
-import { BooksActionType } from "../types";
+import { ActionType_Books } from "../types";
 import { Handlers, reducer } from "./helpers";
 
 const initialState: IBooksInitialState = {
@@ -9,7 +9,7 @@ const initialState: IBooksInitialState = {
   error: "",
 };
 
-const handlers: Handlers<IBooksInitialState, BooksActionType> = {
+const handlers: Handlers<IBooksInitialState, ActionType_Books> = {
   BOOKS_SUCCESS: (draft, action) => {
     draft.loading = false;
     draft.error = "";
@@ -29,6 +29,6 @@ const handlers: Handlers<IBooksInitialState, BooksActionType> = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default produce(
-  (state: Draft<IBooksInitialState> = initialState, action: BooksActionType): IBooksInitialState =>
+  (state: Draft<IBooksInitialState> = initialState, action: ActionType_Books): IBooksInitialState =>
     reducer(state, action, handlers)
 );

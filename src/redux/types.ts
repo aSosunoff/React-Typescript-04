@@ -29,9 +29,26 @@ export type ActionType_Books_Success = Action<"BOOKS_SUCCESS", { payload: IBook[
 export type ActionType_Books_Request = Action<"BOOKS_REQUEST">;
 export type ActionType_Books_Error = Action<"BOOKS_FAILURE", { payload: string }>;
 
-export type BooksActionType =
+export type ActionType_Books =
   | ActionType_Books_Success
   | ActionType_Books_Request
   | ActionType_Books_Error;
+
+/* --- */
+
+/* Cart */
+
+export type ActionType_Cart_Success = Action<"CART_SUCCESS">;
+export type ActionType_Cart_Delete = Action<"CART_DELETE", { payload: number }>;
+export type ActionType_Cart_Increase = Action<"CART_INCREASE", { id: number; price: number }>;
+export type ActionType_Cart_Decrease = Action<"CART_DECREASE", { id: number; price: number }>;
+export type ActionType_Cart_AddBook = Action<"CART_ADDED_BOOK", { payload: IBook | undefined }>;
+
+export type ActionType_Cart =
+  | ActionType_Cart_Success
+  | ActionType_Cart_Delete
+  | ActionType_Cart_Increase
+  | ActionType_Cart_Decrease
+  | ActionType_Cart_AddBook;
 
 /* --- */
