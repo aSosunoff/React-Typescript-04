@@ -1,4 +1,5 @@
 export enum Pages {
-    Home = '/',
-    Cart = '/cart'
+  Home = "/",
+  Cart = "/cart",
+  Post = "/post",
 }
